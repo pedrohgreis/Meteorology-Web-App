@@ -69,4 +69,4 @@ O projeto utiliza **Styled-Components** para estilização, com um tema padrão 
 - Melhorias na acessibilidade e experiência do usuário.
 
 
-Feito com por Pedro Reis
+Feito por Pedro Reis
