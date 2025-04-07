@@ -1,3 +1,4 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 import {Head, FirstDiv, SecondDiv, ThirdDiv} from "./styles";
@@ -6,8 +7,21 @@ import {Head, FirstDiv, SecondDiv, ThirdDiv} from "./styles";
 import {GlobeHemisphereWest} from "phosphor-react";
 import { WiDaySunnyOvercast } from "react-icons/wi";
 import { BsArrowClockwise } from "react-icons/bs";
+import { WeatherData } from "../Main";
 
-export const Header = () => {
+
+export const Header: React.FC<{weather?:WeatherData}> = ({weather}) => {
+  const defaultWeather: WeatherData = {
+    day: new Date(),
+    location: "Unknown",
+    temperature: 0,
+    description: "Unknown",
+    humidity: 0,
+    windSpeed: 0,
+  };
+
+  const currentWeather = weather || defaultWeather;
+  
   return(
     <Head>
       <FirstDiv>
@@ -26,7 +40,7 @@ export const Header = () => {
         <div className="content">
           <h2>Weather</h2> 
           <WiDaySunnyOvercast size={24} color="#FFD700" />
-          <span>31 &deg;C Cuiabá, Mato Grosso</span>
+          <span>{currentWeather.temperature} &deg;C {currentWeather.location}</span>
         </div>
         
         <div className="buttonContainer">

@@ -12,6 +12,7 @@
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.486.0",
     "phosphor-react": "^1.4.1",
     "react": "^19.0.0",
