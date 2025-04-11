@@ -1,0 +1,51 @@
+{
+    "weather":[
+        {
+            "id": "1",
+            "date": "11-04-2025",
+            "location": "São Paulo",
+            "temperature": "17",
+            "description": "Clear",
+            "humidity": "50",
+            "windSpeed": "22",
+            "isNight": true
+        },
+
+
+        {
+            "id": "2",
+            "date": "12-04-2025",
+            "location": "Rio de Janeiro",
+            "temperature": "26",
+            "description": "Clear",
+            "humidity": "56",
+            "windSpeed": "25",
+            "isNight": false
+        },
+
+
+
+        {
+            "id": "3",
+            "date": "13-04-2025",
+            "location": "Cuiabá",
+            "temperature": "23",
+            "description": "Cloudy",
+            "humidity": "46",
+            "windSpeed": "27",
+            "isNight": false
+        },
+
+
+        {
+            "id": "4",
+            "date": "14-04-2025",
+            "location": "Curitiba",
+            "temperature": "12",
+            "description": "Rain",
+            "humidity": "68",
+            "windSpeed": "32",
+            "isNight": true
+        }
+    ]
+}

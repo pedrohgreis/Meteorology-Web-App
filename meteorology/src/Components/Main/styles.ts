@@ -9,23 +9,26 @@ import rain from "../../assets/img/rain.jpg";
 
 interface weatherContainerProps<T>{
     $weatherCondition: string;
-    $isNight: T;
+    $isNight?: T;
 }
 
 export const MainContainer = styled.main`
     position: relative;
     grid-area: cintent;
-    height: calc(100vh - 16rem);
+    height: 100vh;
     background-color: ${({theme}) => theme["gray-200"]};
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 
 export const WeatherContainer = styled.div<weatherContainerProps<boolean>>`
     position: relative;
-    height: 25rem;
+    min-height: 22rem;
     width: 25rem;
-    margin-top: 6rem;
-    margin-left: 3rem;
+    margin: 2rem auto 0 auto;
     border-radius: 8px;
     box-shadow: 0 0 8px ${({theme}) => theme["blue-100"]};
     background-color: ${({theme}) => theme.white};
@@ -109,12 +112,66 @@ export const CurrentCondition = styled.div`
     }
 `;
 
-export const WeatherIcons = styled.div<weatherContainerProps<number>>`
+export const WeatherIcons = styled.div<weatherContainerProps<boolean>>`
     position: absolute;
     left: 42%;
     right: 50%;
     bottom: 50%;
     top: 42%;
+`;
+
+
+export const ClimateStatsContainer = styled.div`
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    min-height: 22rem;
+    width: 25rem;
+    margin: 2rem auto 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 0 8px ${({theme}) => theme["blue-100"]};
+    background-color: ${({theme}) => theme.white};
+    
+`;
+
+export const ClimateStatsHeader = styled.header`
+    background-color: transparent;
+    color:  ${({theme}) => theme["gray-400"]};
+    font-family: ${({theme}) => theme.font.medium};
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+`;
+
+
+export const ThermalSensation = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({theme}) => theme["blue-100"]};
+    color:  ${({theme}) => theme["gray-400"]};
+    font-family: ${({theme}) => theme.font.family};
+    font-size: 1.7rem;
+    width: 40%;
+    height: 40%;
+    margin-bottom: 0.3rem;
+    margin-top: 1rem;
+    margin-right: 12rem;
+`;
+
+export const ClimateStates = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    
+    border-top: 1px solid ${({theme}) => theme["gray-200"]};
+    border-bottom: 1px solid ${({theme}) => theme["gray-200"]};
+    height: 3rem;;
+    background-color: transparent;
 `;
 
 

@@ -95,6 +95,7 @@ export const SecondDiv = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-right: 0.7rem;
         gap: 0.5rem;
         padding: 0.5rem 1rem;
         border: none;
