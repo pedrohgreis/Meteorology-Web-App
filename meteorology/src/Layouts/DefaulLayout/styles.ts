@@ -5,10 +5,8 @@ export const LayoutContainer = styled.div`
     width: 100%;
    
 
-    /* background: black; */
-    border-radius: 8px;
-
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     overflow-x: hidden;
 `;

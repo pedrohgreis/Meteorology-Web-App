@@ -5,25 +5,55 @@ import styled from "styled-components";
 export const Head = styled.header`
     width: 100vw;
     font-family: ${props => props.theme.font.family};
+    
 `;
 
 export const FirstDiv = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding: 2rem;
+    padding: 0.5rem 2rem;
     background-color: ${props => props.theme["blue-900"]};
     color: ${props => props.theme.white};
+    border-bottom: 1px solid ${props => props.theme["blue-500"]};
 
-    h1{
-        margin-left: 0.75rem;
-    }
 
     .infoWeather{
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 0.5rem;
+        
+        
+        h1{
+            margin-left: 0.75rem;
+        }
+
+        @media (min-width: 768px) {
+         
+            h1{
+                font-size: 2rem;
+            }
+
+            svg{
+                width: 3rem;
+                height: 3rem;
+            }
+
+        }
+
+        @media (min-width: 1024px) {
+            
+            h1{
+                font-size: 2.75rem;
+            }
+
+            svg{
+                width: 3rem;
+                height: 3rem;
+            }
+        }
+       
     }
 
     .signUp{
@@ -32,6 +62,8 @@ export const FirstDiv = styled.div`
         align-items: center;
         gap: 0.5rem;
         margin-left: auto;
+
+       
     }
 
     .signingUp{
@@ -48,11 +80,25 @@ export const FirstDiv = styled.div`
         color: ${props => props.theme.white};
         transition: all 0.2s ease-in-out;
 
+
         &:hover{
             background-color: ${props => props.theme["blue-200"]};
             transform: scale3d(1.05,1.05,1);
             box-shadow: 0 0 10px ${props => props.theme["blue-900"]};
             transition: all 0.2s ease-in-out;
+        }
+
+
+        @media (min-width: 768px) {
+            margin-right: 5rem;
+            padding: 1.5rem;
+            
+        }
+
+        @media (min-width: 1024px) {
+            margin-right: 10rem;
+            padding: 1.5rem;
+            
         }
     }
 `;
@@ -62,6 +108,7 @@ export const SecondDiv = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     padding: 1rem;
     opacity: 0.92;
     background-color: ${props => props.theme["blue-500"]};
@@ -142,7 +189,20 @@ export const SecondDiv = styled.div`
                 width: 100%;
             }
         }
+
+        @media (min-width: 768px) {
+            margin-right: 5rem;
+            padding: 1rem;
+            
+        }
+
+        @media (min-width: 1024px) {
+            margin-right: 10rem;
+            padding: 1rem;
+            
+        }
     }
+
    
 `;
 
@@ -179,5 +239,69 @@ export const ThirdDiv = styled.div`
                 border-bottom: 3px solid ${({theme}) => theme["blue-200"]}};
             }
         };
+
     
 `;
+
+
+
+export const SearchForm = styled.form`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+    margin-left: auto;
+    width: 40%;
+    height: 3rem;
+    padding: 2rem;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+    
+`;
+
+export const DivForm = styled.div`
+    width: 100%;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background-color: ${props => props.theme["blue-600"]};
+
+    svg{
+        width: 1rem;
+        height: 3rem;
+        margin-right: 1rem;
+    }
+
+    button{
+        background-color: transparent;
+        border: none;
+        color: ${props => props.theme.white};
+
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+`;
+
+
+
+export const InputForm = styled.input`
+    background-color: transparent;
+    outline: 0;
+    display: flex;
+    padding: 1rem;
+    width: 100%;
+    border: none;
+    color: ${props => props.theme.white};
+
+    &::placeholder{
+        font-family: ${props => props.theme.font};
+        font-size: 1rem;
+    }
+`;
+
+

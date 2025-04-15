@@ -27,7 +27,7 @@ export const MainContainer = styled.main`
 export const WeatherContainer = styled.div<weatherContainerProps<boolean>>`
     position: relative;
     min-height: 22rem;
-    width: 25rem;
+    width: 24rem;
     margin: 2rem auto 0 auto;
     border-radius: 8px;
     box-shadow: 0 0 8px ${({theme}) => theme["blue-100"]};
@@ -47,6 +47,12 @@ export const WeatherContainer = styled.div<weatherContainerProps<boolean>>`
         if ($weatherCondition === "Drizzle") return `url(${rain})`;
         return "none";
     }};
+
+
+    //* Adapted screen
+    @media (min-width: 1024px) {
+        width: 58rem;
+    }
 
 `;
 
@@ -114,10 +120,38 @@ export const CurrentCondition = styled.div`
 
 export const WeatherIcons = styled.div<weatherContainerProps<boolean>>`
     position: absolute;
-    left: 42%;
+    left: 50%;
     right: 50%;
     bottom: 50%;
     top: 42%;
+
+    
+    @media (min-width: 768px) {
+         
+         svg{
+            width: 6rem;
+            position: absolute;
+            left: 50%;
+            right: 50%;
+            bottom: 50%;
+            top: 42%;
+
+         }
+
+    }
+
+    @media (min-width: 1024px) {
+        svg{
+            width: 6rem;
+            position: absolute;
+            left: 50%;
+            right: 50%;
+            bottom: 50%;
+            top: 52%;
+
+         }
+
+    }
 `;
 
 
@@ -127,11 +161,15 @@ export const ClimateStatsContainer = styled.div`
     align-items: center;
     flex-direction: column;
     min-height: 22rem;
-    width: 25rem;
+    width: 24rem;
     margin: 2rem auto 0 auto;
     border-radius: 8px;
     box-shadow: 0 0 8px ${({theme}) => theme["blue-100"]};
     background-color: ${({theme}) => theme.white};
+
+    @media (min-width: 1024px) {
+        width: 58rem;
+    }
     
 `;
 
@@ -151,10 +189,9 @@ export const ThermalSensation = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${({theme}) => theme["blue-100"]};
     color:  ${({theme}) => theme["gray-400"]};
     font-family: ${({theme}) => theme.font.family};
-    font-size: 1.7rem;
+    font-size: 4rem;
     width: 40%;
     height: 40%;
     margin-bottom: 0.3rem;
@@ -164,14 +201,22 @@ export const ThermalSensation = styled.div`
 
 export const ClimateStates = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 0.75rem;
     width: 100%;
+    font-family: ${({theme}) => theme.font.family};
     
-    border-top: 1px solid ${({theme}) => theme["gray-200"]};
+    
     border-bottom: 1px solid ${({theme}) => theme["gray-200"]};
-    height: 3rem;;
+    height: 3rem;
+    margin-left: 1rem;
     background-color: transparent;
+
+    svg {
+    color: ${({theme}) => theme["gray-600"]}; /* Cor do ícone */
+    stroke-width: 2.5; /* Aumenta a espessura dos traços */
+  }
 `;
 
 

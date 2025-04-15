@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import axios from "axios";
+
 
 import { MainContainer, 
         WeatherContainer, 
@@ -18,7 +17,16 @@ import {format, getHours} from "date-fns";
 import {ptBR} from "date-fns/locale";
 
  //Icons
- import { WiNightAltCloudy, WiDaySunny, WiDayCloudy, WiRain  } from "react-icons/wi";
+ import { 
+  WiNightAltCloudy,
+  WiDaySunny,
+  WiDayCloudy, 
+  WiRain,
+  WiHumidity,
+  WiBarometer
+} from "react-icons/wi";
+
+  import { FiWind } from "react-icons/fi";
 
 
 
@@ -31,10 +39,10 @@ import {ptBR} from "date-fns/locale";
 //* Se o Main fosse uma função que retorna um elemento JSX, o Outlet não funcionaria
 //*  corretamente. Portanto, o Main deve ser um componente React que retorna JSX.
 
-interface MainProps{
-  children: React.ReactNode;
-  weather?: WeatherData;
-};
+// interface MainProps{
+//   children: React.ReactNode;
+//   weather?: WeatherData;
+// };
 
 export interface WeatherData {
   id:number,
@@ -49,45 +57,10 @@ export interface WeatherData {
 };
 
 
-export const Main: React.FC<MainProps> = ({children}) => {
+export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = ({children, weather}) => {
 
 
-
-  const [weather,setWeather] = useState<WeatherData | null>(null);
-
-
-  //Consumindo a API 
-  useEffect(() => {
-    axios.get("http://localhost:3001/weather")
-    .then(response => {
-
-      const dayHour = new Date(response.data.day);
-      
-      //* convertendo dados, pois vem como string
-      const dayConverter: WeatherData = {
-        ...response.data,
-        id: Number(response.data.id),
-        day:  isNaN(dayHour.getTime()) ? new Date() : dayHour,
-        temperature: Number(response.data.temperature),
-        humidity: Number(response.data.humidity),
-        windSpeed: Number(response.data.windSpeed),
-        isNight: getHours(new Date()) >= 18 || getHours(new Date()) < 6
-      };
-
-      setWeather(dayConverter);
-    })
-
-    .catch(error => {
-      console.log(error);
-    });
-
-
-  },[]);
-
-
-
-
-  const date = format(weather?.day || new Date(), "dd 'de' MMMM 'de' yyyy", {locale:ptBR});
+  
   
   // const isNight = () => {
   //   const hour = getHours(new Date());
@@ -96,26 +69,30 @@ export const Main: React.FC<MainProps> = ({children}) => {
   // };
 
   //* Dados da API
-  const weatherData = {
-    id: weather?.id,
-    day: date,
-    location: weather?.location ,
-    temperature: weather?.temperature,
-    description: weather?.description,
-    humidity: weather?.humidity,
-    windSpeed: weather?.windSpeed,
-    isNight: weather?.isNight
+  const weatherDataDefault = {
+    id: 0,
+    day: new Date(),
+    location: "Unknown" ,
+    temperature: 0,
+    description: "Unknown",
+    humidity: 0,
+    windSpeed: 0,
+    isNight: getHours(new Date()) >= 18 || getHours(new Date()) < 6
   };
 
-  const wd = weatherData;
+  const currentWeather = weather ? {...weather, day: new Date(weather.day)} //* converte weather.day para Date
+  : weatherDataDefault;
 
+  const cw = currentWeather;
+
+
+  console.log(cw.description);
   
-  console.log(wd.description);
   
   return (
     <MainContainer>
-      <WeatherContainer $weatherCondition={wd.description || "Unknown"} >
-      {/* {wd.description === "Rain" && (
+      <WeatherContainer $weatherCondition={cw.description || "Unknown"} >
+      {/* {cw.description === "Rain" && (
         <RainVideo
           src="/video/rain.mp4"
           autoPlay
@@ -126,23 +103,23 @@ export const Main: React.FC<MainProps> = ({children}) => {
         />
       )} */}
         <WeatherDataContainer>
-          <h2>{wd.day}</h2>
+          <h2>{cw.day ? format(cw.day, "dd 'de' MMMM 'de' yyyy", {locale: ptBR}) : "Invalid Date"}</h2>
         </WeatherDataContainer>
 
         <InfoWeatherContainer>
-          <span className="degrees">{wd.temperature}&deg;C</span>
+          <span className="degrees">{cw.temperature}&deg;C</span>
         </InfoWeatherContainer>
 
-        <WeatherIcons $weatherCondition={wd.description || "Unknown"} $isNight={wd.isNight}>
+        <WeatherIcons $weatherCondition={cw.description || "Unknown"} $isNight={cw.isNight}>
 
-            {wd.description === "Clear" && wd.isNight === true ? <WiNightAltCloudy size={92} color="#FFF"/> : false}
-            {wd.description === "Clear" && wd.isNight === false ? <WiDaySunny size={92} color="#FFF" /> : false}
-            {wd.description === "Cloudy" && wd.isNight === false ? <WiDayCloudy size={92} color="#FFF" /> : false}
-            {wd.description === "Rain" && (wd.isNight === true || wd.isNight === false ) ? <WiRain size={92} color="#FFF" /> : false}
+            {cw.description === "Clear" && cw.isNight === true ? <WiNightAltCloudy size={92} color="#FFF"/> : false}
+            {cw.description === "Clear" && cw.isNight === false ? <WiDaySunny size={92} color="#FFF" /> : false}
+            {cw.description === "Cloudy" && cw.isNight === false ? <WiDayCloudy size={92} color="#FFF" /> : false}
+            {cw.description === "Rain" && (cw.isNight === true || cw.isNight === false ) ? <WiRain size={92} color="#FFF" /> : false}
         </WeatherIcons>
 
         <CurrentCondition>
-          <span className="condition">{wd.description}</span>
+          <span className="condition">{cw.description}</span>
         </CurrentCondition>
         
       </WeatherContainer>
@@ -151,23 +128,23 @@ export const Main: React.FC<MainProps> = ({children}) => {
       <ClimateStatsContainer>
         
         <ClimateStatsHeader>
-          <h2>Condições térmicas de {wd.location}</h2>
+          <h2>Condições térmicas - {cw.location}</h2>
         </ClimateStatsHeader>
 
         <ThermalSensation>
-          {wd.temperature}&deg;C
+          {cw.temperature}&deg;C
         </ThermalSensation>
 
         <ClimateStates>
-          Pression
+          <WiHumidity size={25} /> {cw.humidity || "--"}%
         </ClimateStates>
 
         <ClimateStates>
-          Wind
+          <FiWind size={25}/> {cw.windSpeed} km/h
         </ClimateStates>
 
         <ClimateStates>
-          Humidity
+          <WiBarometer size={25} /> {cw.description}
         </ClimateStates>
         
       </ClimateStatsContainer>
