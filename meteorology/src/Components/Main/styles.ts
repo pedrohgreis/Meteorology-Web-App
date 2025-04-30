@@ -13,9 +13,11 @@ interface weatherContainerProps<T>{
 }
 
 export const MainContainer = styled.main`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    grid-area: cintent;
-    height: 100vh;
+    height: 100%;
     background-color: ${({theme}) => theme["gray-200"]};
 
     display: flex;
@@ -187,16 +189,17 @@ export const ClimateStatsHeader = styled.header`
 
 export const ThermalSensation = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     color:  ${({theme}) => theme["gray-400"]};
     font-family: ${({theme}) => theme.font.family};
     font-size: 4rem;
-    width: 40%;
+    width: 100%;
     height: 40%;
     margin-bottom: 0.3rem;
     margin-top: 1rem;
-    margin-right: 12rem;
+    padding-left: 1rem;
+    
 `;
 
 export const ClimateStates = styled.div`

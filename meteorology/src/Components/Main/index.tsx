@@ -10,7 +10,7 @@ import { MainContainer,
         ClimateStatsContainer, 
         ClimateStatsHeader,
         ThermalSensation,
-        ClimateStates,
+        ClimateStates
       } from "./styles";
 
 import {format, getHours} from "date-fns";
@@ -23,10 +23,12 @@ import {ptBR} from "date-fns/locale";
   WiDayCloudy, 
   WiRain,
   WiHumidity,
-  WiBarometer
+  WiBarometer,
 } from "react-icons/wi";
 
-  import { FiWind } from "react-icons/fi";
+import { FaSun,FaArrowsAltH } from "react-icons/fa";
+
+import { FiWind } from "react-icons/fi";
 
 
 
@@ -90,67 +92,73 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
   
   
   return (
-    <MainContainer>
-      <WeatherContainer $weatherCondition={cw.description || "Unknown"} >
-      {/* {cw.description === "Rain" && (
-        <RainVideo
-          src="/video/rain.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
+    
+      <MainContainer>
+        <WeatherContainer $weatherCondition={cw.description || "Unknown"} >
+        {/* {cw.description === "Rain" && (
+          <RainVideo
+            src="/video/rain.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            
+          />
+        )} */}
+          <WeatherDataContainer>
+            <h2>{cw.day ? format(cw.day, "dd 'de' MMMM 'de' yyyy", {locale: ptBR}) : "Invalid Date"}</h2>
+          </WeatherDataContainer>
+
+          <InfoWeatherContainer>
+            <span className="degrees">{typeof cw.temperature === "number" ? cw.temperature : 0}&deg;C</span>
+          </InfoWeatherContainer>
+
+          <WeatherIcons $weatherCondition={cw.description || "Unknown"} $isNight={cw.isNight}>
+
+              {cw.description === "Clear" && cw.isNight === true ? <WiNightAltCloudy size={92} color="#FFF"/> : false}
+              {cw.description === "Clear" && cw.isNight === false ? <WiDaySunny size={92} color="#FFF" /> : false}
+              {cw.description === "Cloudy" && cw.isNight === false ? <WiDayCloudy size={92} color="#FFF" /> : false}
+              {cw.description === "Rain" && (cw.isNight === true || cw.isNight === false ) ? <WiRain size={92} color="#FFF" /> : false}
+          </WeatherIcons>
+
+          <CurrentCondition>
+            <span className="condition">{cw.description}</span>
+          </CurrentCondition>
           
-        />
-      )} */}
-        <WeatherDataContainer>
-          <h2>{cw.day ? format(cw.day, "dd 'de' MMMM 'de' yyyy", {locale: ptBR}) : "Invalid Date"}</h2>
-        </WeatherDataContainer>
-
-        <InfoWeatherContainer>
-          <span className="degrees">{cw.temperature}&deg;C</span>
-        </InfoWeatherContainer>
-
-        <WeatherIcons $weatherCondition={cw.description || "Unknown"} $isNight={cw.isNight}>
-
-            {cw.description === "Clear" && cw.isNight === true ? <WiNightAltCloudy size={92} color="#FFF"/> : false}
-            {cw.description === "Clear" && cw.isNight === false ? <WiDaySunny size={92} color="#FFF" /> : false}
-            {cw.description === "Cloudy" && cw.isNight === false ? <WiDayCloudy size={92} color="#FFF" /> : false}
-            {cw.description === "Rain" && (cw.isNight === true || cw.isNight === false ) ? <WiRain size={92} color="#FFF" /> : false}
-        </WeatherIcons>
-
-        <CurrentCondition>
-          <span className="condition">{cw.description}</span>
-        </CurrentCondition>
-        
-      </WeatherContainer>
+        </WeatherContainer>
 
 
-      <ClimateStatsContainer>
-        
-        <ClimateStatsHeader>
-          <h2>Condições térmicas - {cw.location}</h2>
-        </ClimateStatsHeader>
+        <ClimateStatsContainer>
+          
+          <ClimateStatsHeader>
+            <h2>Condições térmicas - {cw.location}</h2>
+          </ClimateStatsHeader>
 
-        <ThermalSensation>
-          {cw.temperature}&deg;C
-        </ThermalSensation>
+          <ThermalSensation>
+            {typeof cw.temperature === "number" ? cw.temperature : 0}&deg;C
+          </ThermalSensation>
 
-        <ClimateStates>
-          <WiHumidity size={25} /> {cw.humidity || "--"}%
-        </ClimateStates>
+          <ClimateStates>
+            <WiHumidity size={25} /> {cw.humidity || "--"}%
+          </ClimateStates>
 
-        <ClimateStates>
-          <FiWind size={25}/> {cw.windSpeed} km/h
-        </ClimateStates>
+          <ClimateStates>
+            <FiWind size={25}/> {cw.windSpeed} km/h
+          </ClimateStates>
 
-        <ClimateStates>
-          <WiBarometer size={25} /> {cw.description}
-        </ClimateStates>
-        
-      </ClimateStatsContainer>
+          <ClimateStates>
+            <FaArrowsAltH size={25} /> {cw.description}
+          </ClimateStates>
+
+          <ClimateStates>
+            <FaSun size={25}/> índice UV
+          </ClimateStates>
+          
+        </ClimateStatsContainer>
 
 
-      {children}
-    </MainContainer>
+        {children}
+      </MainContainer>
+    
   );
 };

@@ -2,21 +2,22 @@ import { createGlobalStyle } from "styled-components";
 
 
 export const GlobalStyle = createGlobalStyle`
-
-    *{
+    * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
 
-    body,html{
-       background-color: ${props => props.theme["gray-200"]};
+    body {
+        background-color: ${props => props.theme["gray-200"]};
+        -webkit-font-smoothing: antialiased;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden; /* Evita overflow horizontal */
     }
 
-    main{
-        display: grid;
-        grid-template-columns: 4fr 1fr; 
-        grid-template-areas: "cintent nav";
-    }
-
+    /* body {
+        background-color: ${props => props.theme["gray-200"]};
+        -webkit-font-smoothing: antialiased; 
+    } */
 `;
