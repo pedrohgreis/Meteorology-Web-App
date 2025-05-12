@@ -12,7 +12,7 @@ export const Home: React.FC<{weather:WeatherData}> = () => {
     
         useEffect(() => {
           axios
-            .get("http://localhost:3001/weather")
+            .get("")
             .then((response:any) => {
               const weatherData = response.data[3];
       
