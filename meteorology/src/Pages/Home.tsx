@@ -31,7 +31,7 @@ export const Home: React.FC<{weather:WeatherData}> = () => {
                 isNight: weatherData.isNight === true || weatherData.isNight === "true",
               };
 
-              console.log(dayConverter);
+              console.log("weatherData", weatherData);
       
               setWeather(dayConverter);
             })
