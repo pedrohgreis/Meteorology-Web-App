@@ -7,7 +7,7 @@ import cloudyImage from "../../assets/img/cloudy.jpg";
 import cloudyNightImage from "../../assets/img/cloudy_night.jpg";
 import rain from "../../assets/img/rain.jpg";
 
-interface weatherContainerProps<T>{
+export interface weatherContainerProps<T>{
     $weatherCondition: string;
     $isNight?: T;
 }
@@ -28,7 +28,7 @@ export const MainContainer = styled.main`
 
 export const WeatherContainer = styled.div<weatherContainerProps<boolean>>`
     position: relative;
-    min-height: 22rem;
+    min-height: 24rem;
     width: 24rem;
     margin: 2rem auto 0 auto;
     border-radius: 8px;
@@ -162,8 +162,8 @@ export const ClimateStatsContainer = styled.div`
     /* justify-content: center; */
     align-items: center;
     flex-direction: column;
-    min-height: 22rem;
-    width: 24rem;
+    min-height: 24rem;
+    width: 25rem;
     margin: 2rem auto 0 auto;
     border-radius: 8px;
     box-shadow: 0 0 8px ${({theme}) => theme["blue-100"]};
@@ -186,19 +186,32 @@ export const ClimateStatsHeader = styled.header`
     padding: 1rem;
 `;
 
+export const TopRow = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
 
-export const ThermalSensation = styled.div`
+  @media (min-width: 768px){
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    color:  ${({theme}) => theme["gray-400"]};
-    font-family: ${({theme}) => theme.font.family};
-    font-size: 4rem;
-    width: 100%;
-    height: 40%;
-    margin-bottom: 0.3rem;
-    margin-top: 1rem;
-    padding-left: 1rem;
+  }
+`;
+
+
+
+export const ThermalSensation = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: ${({ theme }) => theme["gray-400"]};
+  font-family: ${({ theme }) => theme.font.family};
+  font-size: 4rem;
+  margin-right: 1rem;
+
+  @media (min-width: 768px){
+    margin-left: 3rem;
+  }
     
 `;
 
@@ -206,7 +219,7 @@ export const ClimateStates = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 0.75rem;
+    gap: 17rem;
     width: 100%;
     font-family: ${({theme}) => theme.font.family};
     
@@ -216,10 +229,22 @@ export const ClimateStates = styled.div`
     margin-left: 1rem;
     background-color: transparent;
 
+    @media (min-width: 768px){
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 45rem;
+    }
+
     svg {
     color: ${({theme}) => theme["gray-600"]}; /* Cor do ícone */
     stroke-width: 2.5; /* Aumenta a espessura dos traços */
+    
+    @media (min-width: 768px){
+        margin-left: 3rem;
+    }
   }
+  
 `;
 
 

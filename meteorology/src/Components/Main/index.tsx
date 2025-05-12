@@ -10,7 +10,8 @@ import { MainContainer,
         ClimateStatsContainer, 
         ClimateStatsHeader,
         ThermalSensation,
-        ClimateStates
+        ClimateStates,
+        TopRow
       } from "./styles";
 
 import {format, getHours} from "date-fns";
@@ -22,13 +23,13 @@ import {ptBR} from "date-fns/locale";
   WiDaySunny,
   WiDayCloudy, 
   WiRain,
-  WiHumidity,
-  WiBarometer,
+  WiHumidity
 } from "react-icons/wi";
 
 import { FaSun,FaArrowsAltH } from "react-icons/fa";
 
 import { FiWind } from "react-icons/fi";
+import SunArc from "../SunArc";
 
 
 
@@ -55,7 +56,9 @@ export interface WeatherData {
   humidity:number;
   windSpeed:number;
   isNight: boolean;
-  forecast?: []
+  forecast?: [],
+  sunrise?: string,
+  sunset?: string
 };
 
 
@@ -77,9 +80,11 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
     location: "Unknown" ,
     temperature: 0,
     description: "Unknown",
-    humidity: 0,
+    isNight: getHours(new Date()) >= 18 || getHours(new Date()) < 6,
+    sunrise: "06:00",
+    sunset: "18:00",
     windSpeed: 0,
-    isNight: getHours(new Date()) >= 18 || getHours(new Date()) < 6
+    humidity: 0
   };
 
   const currentWeather = weather ? {...weather, day: new Date(weather.day)} //* converte weather.day para Date
@@ -129,21 +134,24 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
 
 
         <ClimateStatsContainer>
-          
+
           <ClimateStatsHeader>
             <h2>Condições térmicas - {cw.location}</h2>
           </ClimateStatsHeader>
 
-          <ThermalSensation>
-            {typeof cw.temperature === "number" ? cw.temperature : 0}&deg;C
-          </ThermalSensation>
+          <TopRow>
+            <ThermalSensation>
+              {typeof cw.temperature === "number" ? cw.temperature : 0}°C
+            </ThermalSensation>
+            <SunArc sunrise={cw.sunrise || "06:00"} sunset={cw.sunset || "18:00"} />
+          </TopRow>
 
           <ClimateStates>
             <WiHumidity size={25} /> {cw.humidity || "--"}%
           </ClimateStates>
 
           <ClimateStates>
-            <FiWind size={25}/> {cw.windSpeed} km/h
+            <FiWind size={25} /> {cw.windSpeed} km/h
           </ClimateStates>
 
           <ClimateStates>
@@ -151,11 +159,9 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
           </ClimateStates>
 
           <ClimateStates>
-            <FaSun size={25}/> índice UV
+            <FaSun size={25} /> índice UV
           </ClimateStates>
-          
-        </ClimateStatsContainer>
-
+      </ClimateStatsContainer>
 
         {children}
       </MainContainer>

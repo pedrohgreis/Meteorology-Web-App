@@ -3,7 +3,8 @@ import {motion} from "framer-motion";
 
 
 interface DeveloperWrapperProps {
-    $alignright: string;
+    $alignright?: string;
+    $background?: string;
 }
 
 
@@ -15,8 +16,10 @@ export const Header = styled.header`
     color: ${({theme}) => theme.white};
     width: 100%;
     height: 6rem;
-    background-color: blue;
-    border-bottom: 1px solidrgba(250, 249, 246, 0.6)  ;
+    background:rgba(35, 70, 134, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); /* Safari support */
+    border-bottom: 1px solid rgba(250, 249, 246, 0.6)  ;
 `;
 
 
@@ -30,7 +33,7 @@ export const ButtonLogin = styled.button`
     cursor: pointer;
     border-radius: 10px;
     border: none;
-    background-color: ${({theme}) => theme["blue-600"]};
+    background-color: ${({theme}) => theme["blue-500"]};
     transition: all 0.2s ease-in-out;
     
 
@@ -48,12 +51,13 @@ export const MainAbout = styled.main`
     font-size: ${({theme}) => theme.font.lineHeight};
     text-indent: 1rem;
     line-height: 1.7rem;
+    
    
 `;
 
 export const PresentationSection = styled.section`
     
-    background-color: #13131F;
+    background: linear-gradient(135deg, #0d1b2a, #1b263b, #415a77);
     width: 100%;
     min-height: 70vh;
     
@@ -92,7 +96,7 @@ export const DeveloperContent = styled.div<DeveloperWrapperProps>`
 
 
 
-export const DevelopersInfo = styled.div`
+export const DevelopersInfo = styled.div<DeveloperWrapperProps>`
     display: flex;
     width: 7rem;
     height: 7rem;
@@ -101,6 +105,10 @@ export const DevelopersInfo = styled.div`
     background-color: white;
     transition: all 0.2s ease-in-out;
     cursor: pointer;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(${props => props.$background});
+    background-position: center;
 
     &:hover{
         box-shadow: 0 2px 6px 5px #8257E6;
@@ -142,27 +150,51 @@ export const InfoSection = styled(motion.section)`
 
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 2rem;
     padding: 3rem 2rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+`;
+
+
+export const Images = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 35%;
+    align-items: center;
+    margin-top: 3rem;
+
+    img {
+        width: 15rem;
+        height: 15rem;
+        margin-right: 1rem;
+        object-fit: cover;
+    }
+
+    @media(min-width: 768px) {
+        img{
+            width: 20rem;
+            height: 20rem;
+        }
+    }
 `;
 
 export const Info = styled.main`
-    width: 60%;
-    margin-top: 5rem;
+    width: 50%;
+    margin-top: 1rem;
     font-size: 1.3rem;
     line-height: 1.6;
     padding: 1rem;
 
     p{
-        margin: 2rem;
+        margin: 2rem 0;
     }
 `;
 
 
 export const CuriositySection = styled(motion.section)`
-    background-color: #13131F;
+    background:linear-gradient(135deg, #0d1b2a, #1b263b, #415a77);
     color: ${({theme}) => theme.white};
     font-family: ${({theme}) => theme.font.family};
     min-height: 70vh;
@@ -207,6 +239,7 @@ export const Footer = styled(motion.footer)`
     display: flex;
     align-items: center;
     justify-content: center;
+
 `;
 
 

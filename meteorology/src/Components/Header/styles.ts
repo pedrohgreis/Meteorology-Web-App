@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 
 
+
 export const Head = styled.header`
     width: 100vw;
     font-family: ${props => props.theme.font.family};

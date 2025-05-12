@@ -6,17 +6,27 @@ import { NavLink } from "react-router-dom";
 import {Head, FirstDiv, SecondDiv, ThirdDiv, SearchForm, InputForm, DivForm} from "./styles";
 
 // icons
-import {GlobeHemisphereWest} from "phosphor-react";
-import { WiDaySunnyOvercast } from "react-icons/wi";
-import { BsArrowClockwise } from "react-icons/bs";
-import { FaSearch } from "react-icons/fa";
+import * as WeatherIcons from "react-icons/wi"; 
 
 import { WeatherData } from "../Main";
+
+import { DynamicIcons } from "../DynamicIcons";
+import { FaSearch } from "react-icons/fa";
+import { WiDaySunnyOvercast } from "react-icons/wi";
+import { BsArrowClockwise } from "react-icons/bs";
+
 
 
 
 
 export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
+
+  const handleNavigate = () => {
+    window.location.href = "/home";
+    console.log("Updating weather data...");
+  };
+
+
   const defaultWeather: WeatherData = {
     id: 0,
     isNight: false,
@@ -28,14 +38,33 @@ export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
     windSpeed: 0,
   };
 
+
+
   const currentWeather = weather || defaultWeather;
   const cw = currentWeather;
+
+  const weatherIconsMap: Record<string, keyof typeof WeatherIcons> = {
+    "ClearDay": "WiDaySunnyOvercast",
+    "ClearNight": "WiNightClear",
+    "CloudyDay": "WiCloudy",
+    "CloudyNight": "WiCloudy",
+    "RainDay": "WiRain",
+    "RainNight": "WiRain",
+    "SnowDay": "WiSnow",
+    "SnowNight": "WiSnow",
+    "ThunderstormDay": "WiThunderstorm",
+    "ThunderstormNight": "WiThunderstorm",
+  };
+
+  const iconKey = `${cw.description}${cw.isNight ? "Night" : "Day"}` as keyof typeof weatherIconsMap;
+  const iconName = weatherIconsMap[iconKey] || "WiDaySunnyOvercast";
+
   
   return(
     <Head>
       <FirstDiv>
         <div className="infoWeather">
-          <GlobeHemisphereWest size={34} />
+         <DynamicIcons name={iconName} size={32} className="icon" />
           <h1>Weather App</h1>
         </div>
 
@@ -60,7 +89,7 @@ export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
         </div>
         
         <div className="buttonContainer">
-          <button type="submit" className="buttonHeader">
+          <button type="submit" className="buttonHeader" onClick={handleNavigate}>
             <BsArrowClockwise size={24} color="#FFF" /> Update
           </button>
         </div>
