@@ -23,7 +23,6 @@ const SunArc: React.FC<SunArcProps> = ({ sunrise, sunset }) => {
 
     // Map time to angle: sunrise = -90°, (sunrise - 1 minute) = 90°
     const cycleStart = sunriseHour; // Start cycle at sunrise
-    const cycleEnd = sunriseHour - (1 / 60); // One minute before sunrise next day
     const cycleHours = (hours - cycleStart + 24) % 24;
     const percent = cycleHours / 24;
     const startAngle = -Math.PI / 2; // -90° at sunrise
