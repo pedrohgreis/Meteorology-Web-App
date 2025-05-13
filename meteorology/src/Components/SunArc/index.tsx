@@ -14,6 +14,8 @@ const SunArc: React.FC<SunArcProps> = ({ sunrise, sunset }) => {
     const height = 120;
     const radius = 80;
 
+
+
     const now = new Date();
     const hours = now.getHours() + now.getMinutes() / 60;
 

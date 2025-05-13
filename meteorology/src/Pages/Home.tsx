@@ -12,9 +12,14 @@ export const Home: React.FC<{weather:WeatherData}> = () => {
     
         useEffect(() => {
           axios
-            .get("")
+            .get("http://localhost:3001/weather")
             .then((response:any) => {
-              const weatherData = response.data[3];
+               const weatherData = Array.isArray(response.data) ? response.data[0] : response.data;
+
+              if (!weatherData || !weatherData.date) {
+                console.warn("weatherData inválido:", weatherData);
+                return;
+              }
       
               const [day, month, year] = weatherData.date.split("-");
               const dayHour = new Date(`${year}-${month}-${day}`);
@@ -39,11 +44,6 @@ export const Home: React.FC<{weather:WeatherData}> = () => {
               console.log(error);
             });
         }, []);
-
-
-
-
-
 
 
     return (

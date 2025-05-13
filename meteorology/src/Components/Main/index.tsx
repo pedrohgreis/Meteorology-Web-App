@@ -36,6 +36,7 @@ import SunArc from "../SunArc";
 
 
 
+
 //* Para que o Outlet funcione, o Main precisa ser um componente que retorna JSX,
 // * e não uma função que retorna um elemento JSX. Isso é necessário porque o Outlet é
 //* um componente React que precisa ser renderizado dentro de um componente React. 
@@ -65,13 +66,7 @@ export interface WeatherData {
 export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = ({children, weather}) => {
 
 
-  
-  
-  // const isNight = () => {
-  //   const hour = getHours(new Date());
-  //   if(hour >= 18 || hour < 6)
-  //     return true;
-  // };
+
 
   //* Dados da API
   const weatherDataDefault = {
