@@ -6,51 +6,57 @@ import { Main, WeatherData } from "../Components/Main";
 import { Header } from "../Components/Header";
 
 export const Home: React.FC = () => {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [weather, setWeather] = useState<WeatherData[]>([]);
+  
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/weather")
-      .then((response: any) => {
-        const weatherData = Array.isArray(response.data)
-          ? response.data[0]
-          : response.data;
+ useEffect(() => {
+  axios
+    .get("http://vps49762.publiccloud.com.br:7070/climas")
+    .then((response: any) => {
+      const weatherData = response.data;
 
-        if (!weatherData || !weatherData.date) {
-          console.warn("weatherData inválido:", weatherData);
-          return;
-        }
+      if (!Array.isArray(weatherData) || weatherData.length === 0) {
+        console.warn("weatherData inválido:", weatherData);
+        return;
+      }
 
-        const [day, month, year] = weatherData.date.split("-");
-        const dayHour = new Date(`${year}-${month}-${day}`);
+      const convertedWeatherData: WeatherData[] = weatherData.map((item: any) => {
+        const dayHour = new Date(item.Data_coleta);
 
-        const dayConverter: WeatherData = {
-          ...response.data,
-          id: Number(weatherData.id),
+        return {
+          id: Math.floor(Math.random() * 1000),
           day: isNaN(dayHour.getTime()) ? new Date() : dayHour,
-          temperature: Number(weatherData.temperature),
-          description: weatherData.description,
-          humidity: Number(weatherData.humidity),
-          windSpeed: Number(weatherData.windSpeed),
-          location: weatherData.location,
-          isNight:
-            weatherData.isNight === true || weatherData.isNight === "true",
+          hour: isNaN(dayHour.getTime())
+            ? new Date()
+            : new Date(dayHour.getFullYear(), dayHour.getMonth(), dayHour.getDate(), dayHour.getHours()),
+          temperature: Number(item.temperatura),
+          humidity: Number(item.umidade),
+          pressure: Number(item.pressao),
+          windSpeed: Number(item.frequencia_vento),
+          encoderDirection: item.direcao_encoder,
+          encoderPressure: Number(item.posicao_encoder),
+          description: item.description ?? "",
+          isNight: item.isNight === true || item.isNight === "true",
         };
-
-        console.log("weatherData", weatherData);
-
-        setWeather(dayConverter);
-      })
-      .catch((error: unknown) => {
-        console.log(error);
       });
-  }, []);
+
+      console.log("weatherData convertido:", convertedWeatherData);
+
+     setWeather([convertedWeatherData[convertedWeatherData.length - 1]]);
+
+    })
+    .catch((error: unknown) => {
+      console.log(error);
+    });
+}, []);
+
 
   return (
     <div>
-      <Header weather={weather ?? undefined} />
+      <Header weather={weather.length > 0 ? weather[weather.length - 1] : undefined} />
       <Outlet />
-      <Main weather={weather ?? undefined} />
+      <Main weather={weather.length > 0 ? weather[weather.length - 1] : undefined} />
+
     </div>
   );
 };

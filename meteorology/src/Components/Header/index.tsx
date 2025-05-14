@@ -19,6 +19,8 @@ import { BsArrowClockwise } from "react-icons/bs";
 
 
 
+
+
 export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
 
   const handleNavigate = () => {
@@ -31,11 +33,13 @@ export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
     id: 0,
     isNight: false,
     day: new Date(),
-    location: "Unknown",
     temperature: 0,
     description: "Unknown",
     humidity: 0,
     windSpeed: 0,
+    pressure: 0,
+    encoderDirection: "",
+    encoderPressure: 0,
   };
 
 
@@ -85,13 +89,14 @@ export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
         <div className="content">
           <h2>Weather</h2> 
           <WiDaySunnyOvercast size={24} color="#FFD700" />
-          <span>{cw.temperature} &deg;C {cw.location}</span>
-        </div>
+          {/* <span>{cw.temperature} &deg;C {cw.location}</span> */}
+          <span>{cw.temperature} &deg;C</span>
         
-        <div className="buttonContainer">
-          <button type="submit" className="buttonHeader" onClick={handleNavigate}>
-            <BsArrowClockwise size={24} color="#FFF" /> Update
-          </button>
+          <div className="buttonContainer">
+            <button type="submit" className="buttonHeader" onClick={handleNavigate}>
+              <BsArrowClockwise size={24} color="#FFF" /> Update
+            </button>
+          </div>
         </div>
       </SecondDiv>
 

@@ -2,11 +2,7 @@ import React from "react";
 
 
 import { MainContainer, 
-        WeatherContainer, 
-        WeatherDataContainer, 
-        InfoWeatherContainer, 
-        CurrentCondition, 
-        WeatherIcons, 
+         
         ClimateStatsContainer, 
         ClimateStatsHeader,
         ThermalSensation,
@@ -14,19 +10,19 @@ import { MainContainer,
         TopRow
       } from "./styles";
 
-import {format, getHours} from "date-fns";
-import {ptBR} from "date-fns/locale";
+import {getHours} from "date-fns";
+
 
  //Icons
  import { 
-  WiNightAltCloudy,
-  WiDaySunny,
-  WiDayCloudy, 
-  WiRain,
-  WiHumidity
+  WiHumidity,
+  WiBarometer,
+  WiDirectionUp
 } from "react-icons/wi";
 
-import { FaSun,FaArrowsAltH } from "react-icons/fa";
+import { RiSpeedMiniFill } from "react-icons/ri";
+
+//import { FaSun,FaArrowsAltH } from "react-icons/fa";
 
 import { FiWind } from "react-icons/fi";
 import SunArc from "../SunArc";
@@ -49,23 +45,25 @@ import SunArc from "../SunArc";
 // };
 
 export interface WeatherData {
-  id:number,
-  day: Date
-  location:string;
-  temperature:number;
-  description:string;
-  humidity:number;
-  windSpeed:number;
+  id: number;
+  day: Date;
+  temperature?: number;
+  description?: string;
+  humidity: number;
+  windSpeed: number;
+  pressure: number;
+  hour: Date;
   isNight: boolean;
-  forecast?: [],
-  sunrise?: string,
-  sunset?: string
+  encoderDirection: string;
+  encoderPressure: number;
+  sunrise?: string;
+  sunset?: string;
 };
 
 
 export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = ({children, weather}) => {
 
-
+  const hour = weather ? weather.hour.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
 
   //* Dados da API
@@ -79,7 +77,10 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
     sunrise: "06:00",
     sunset: "18:00",
     windSpeed: 0,
-    humidity: 0
+    humidity: 0,
+    pressure: 0,
+    encoderDirection: "N/A",
+    encoderPressure: 0
   };
 
   const currentWeather = weather ? {...weather, day: new Date(weather.day)} //* converte weather.day para Date
@@ -88,51 +89,24 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
   const cw = currentWeather;
 
 
-  console.log(cw.description);
+
   
   
   return (
     
       <MainContainer>
-        <WeatherContainer $weatherCondition={cw.description || "Unknown"} >
-        {/* {cw.description === "Rain" && (
-          <RainVideo
-            src="/video/rain.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            
-          />
-        )} */}
-          <WeatherDataContainer>
-            <h2>{cw.day ? format(cw.day, "dd 'de' MMMM 'de' yyyy", {locale: ptBR}) : "Invalid Date"}</h2>
-          </WeatherDataContainer>
-
-          <InfoWeatherContainer>
-            <span className="degrees">{typeof cw.temperature === "number" ? cw.temperature : 0}&deg;C</span>
-          </InfoWeatherContainer>
-
-          <WeatherIcons $weatherCondition={cw.description || "Unknown"} $isNight={cw.isNight}>
-
-              {cw.description === "Clear" && cw.isNight === true ? <WiNightAltCloudy size={92} color="#FFF"/> : false}
-              {cw.description === "Clear" && cw.isNight === false ? <WiDaySunny size={92} color="#FFF" /> : false}
-              {cw.description === "Cloudy" && cw.isNight === false ? <WiDayCloudy size={92} color="#FFF" /> : false}
-              {cw.description === "Rain" && (cw.isNight === true || cw.isNight === false ) ? <WiRain size={92} color="#FFF" /> : false}
-          </WeatherIcons>
-
-          <CurrentCondition>
-            <span className="condition">{cw.description}</span>
-          </CurrentCondition>
-          
-        </WeatherContainer>
+        
 
 
         <ClimateStatsContainer>
 
+          
+
           <ClimateStatsHeader>
-            <h2>Condições térmicas - {cw.location}</h2>
+            <h2>Condições térmicas - Cuiabá</h2>
           </ClimateStatsHeader>
+
+          <h4>{hour}</h4>
 
           <TopRow>
             <ThermalSensation>
@@ -150,11 +124,15 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
           </ClimateStates>
 
           <ClimateStates>
-            <FaArrowsAltH size={25} /> {cw.description}
+            <WiBarometer size={25} /> {cw.pressure} hPa
           </ClimateStates>
 
           <ClimateStates>
-            <FaSun size={25} /> índice UV
+            <WiDirectionUp size={25} /> {cw.encoderDirection}
+          </ClimateStates>
+
+          <ClimateStates>
+            <RiSpeedMiniFill size={25} /> {cw.encoderPressure} km/h 
           </ClimateStates>
       </ClimateStatsContainer>
 
