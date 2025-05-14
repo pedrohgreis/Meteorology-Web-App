@@ -27,8 +27,8 @@ export const Home: React.FC = () => {
           id: Math.floor(Math.random() * 1000),
           day: isNaN(dayHour.getTime()) ? new Date() : dayHour,
           hour: isNaN(dayHour.getTime())
-            ? new Date()
-            : new Date(dayHour.getFullYear(), dayHour.getMonth(), dayHour.getDate(), dayHour.getHours()),
+            ? 0
+            : dayHour.getHours(),
           temperature: Number(item.temperatura),
           humidity: Number(item.umidade),
           pressure: Number(item.pressao),

@@ -52,7 +52,7 @@ export interface WeatherData {
   humidity: number;
   windSpeed: number;
   pressure: number;
-  hour: Date;
+  hour: number;
   isNight: boolean;
   encoderDirection: string;
   encoderPressure: number;
@@ -63,7 +63,9 @@ export interface WeatherData {
 
 export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = ({children, weather}) => {
 
-  const hour = weather ? weather.hour.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  const hour = weather
+    ? `${weather.hour.toString().padStart(2, "0")}:00`
+    : new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
 
   //* Dados da API
@@ -80,7 +82,8 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
     humidity: 0,
     pressure: 0,
     encoderDirection: "N/A",
-    encoderPressure: 0
+    encoderPressure: 0,
+    hour: 0
   };
 
   const currentWeather = weather ? {...weather, day: new Date(weather.day)} //* converte weather.day para Date
@@ -100,13 +103,11 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
 
         <ClimateStatsContainer>
 
-          
+          <h4>{hour}</h4>
 
           <ClimateStatsHeader>
             <h2>Condições térmicas - Cuiabá</h2>
           </ClimateStatsHeader>
-
-          <h4>{hour}</h4>
 
           <TopRow>
             <ThermalSensation>
