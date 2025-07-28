@@ -19,7 +19,8 @@ export const Header = styled.header`
     background:rgba(35, 70, 134, 0.9);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px); /* Safari support */
-    border-bottom: 1px solid rgba(250, 249, 246, 0.6)  ;
+    border-bottom: 1px solid rgba(250, 249, 246, 0.6);
+    padding: 0 2rem; /* Adiciona padding nas laterais */
 `;
 
 
@@ -242,5 +243,11 @@ export const Footer = styled(motion.footer)`
 
 `;
 
+
+export const Lang = styled.div`
+    position: absolute;
+    background-color: transparent;
+    padding-right: 60rem;
+`;
 
 

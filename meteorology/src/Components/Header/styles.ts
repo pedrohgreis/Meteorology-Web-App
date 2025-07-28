@@ -134,8 +134,27 @@ export const SecondDiv = styled.div`
         text-shadow: 1px 1px 1px ${props => props.theme["blue-900"]};
     }
 
-    .buttonCotainer{
-        margin-right: auto;
+    .buttonContainer {
+        display: flex;
+        align-items: center;
+
+        // padrão (mobile)
+        margin-left: 24rem;
+
+        // tablets
+        @media (min-width: 768px) {
+            margin-left: 30rem;
+        }
+
+        // desktops
+        @media (min-width: 1024px) {
+            margin-left: 45rem;
+        }
+
+        // telas grandes (opcional)
+        @media (min-width: 1440px) {
+            margin-left: 50rem;
+        }
     }
 
     
@@ -145,7 +164,7 @@ export const SecondDiv = styled.div`
         align-items: center;
         margin-right: 0.7rem;
         gap: 0.5rem;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 1.2rem;
         border: none;
         border-radius: 0.5rem;
         letter-spacing: 0.15rem;
@@ -192,15 +211,11 @@ export const SecondDiv = styled.div`
         }
 
         @media (min-width: 768px) {
-            margin-right: 5rem;
-            padding: 1rem;
-            
+            margin-right: 1rem;
         }
 
         @media (min-width: 1024px) {
-            margin-right: 10rem;
-            padding: 1rem;
-            
+            margin-right: 2rem;
         }
     }
 
@@ -303,6 +318,12 @@ export const InputForm = styled.input`
         font-family: ${props => props.theme.font};
         font-size: 1rem;
     }
+`;
+
+export const Lang = styled.div`
+    position: absolute;
+    background-color: transparent;
+    padding-left: 70rem;
 `;
 
 

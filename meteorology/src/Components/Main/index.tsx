@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 
 import { MainContainer, 
@@ -10,7 +11,7 @@ import { MainContainer,
         TopRow
       } from "./styles";
 
-import {getHours} from "date-fns";
+import { getHours} from "date-fns";
 
 
  //Icons
@@ -22,27 +23,11 @@ import {getHours} from "date-fns";
 
 import { RiSpeedMiniFill } from "react-icons/ri";
 
-//import { FaSun,FaArrowsAltH } from "react-icons/fa";
+
 
 import { FiWind } from "react-icons/fi";
 import SunArc from "../SunArc";
 
-
-
-
-
-
-
-//* Para que o Outlet funcione, o Main precisa ser um componente que retorna JSX,
-// * e não uma função que retorna um elemento JSX. Isso é necessário porque o Outlet é
-//* um componente React que precisa ser renderizado dentro de um componente React. 
-//* Se o Main fosse uma função que retorna um elemento JSX, o Outlet não funcionaria
-//*  corretamente. Portanto, o Main deve ser um componente React que retorna JSX.
-
-// interface MainProps{
-//   children: React.ReactNode;
-//   weather?: WeatherData;
-// };
 
 export interface WeatherData {
   id: number;
@@ -63,11 +48,12 @@ export interface WeatherData {
 
 export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = ({children, weather}) => {
 
-  const hour = weather
-    ? `${weather.hour.toString().padStart(2, "0")}:00`
-    : new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  // const hour = weather && typeof weather.hour === "number" && weather.hour >= 0 && weather.hour <= 23
+  //   ? `${weather.hour.toString().padStart(2, "0")}:00`
+  //   : format(new Date(), "HH:mm");
 
 
+    
   //* Dados da API
   const weatherDataDefault = {
     id: 0,
@@ -82,8 +68,7 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
     humidity: 0,
     pressure: 0,
     encoderDirection: "N/A",
-    encoderPressure: 0,
-    hour: 0
+    encoderPressure: 0
   };
 
   const currentWeather = weather ? {...weather, day: new Date(weather.day)} //* converte weather.day para Date
@@ -91,10 +76,8 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
 
   const cw = currentWeather;
 
+    const { t } = useTranslation();
 
-
-  
-  
   return (
     
       <MainContainer>
@@ -103,11 +86,11 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
 
         <ClimateStatsContainer>
 
-          <h4>{hour}</h4>
-
           <ClimateStatsHeader>
-            <h2>Condições térmicas - Cuiabá</h2>
+            <h2>{t("thermal_condition")}</h2>
           </ClimateStatsHeader>
+
+          
 
           <TopRow>
             <ThermalSensation>
@@ -142,3 +125,17 @@ export const Main: React.FC<React.PropsWithChildren<{weather?:WeatherData}>> = (
     
   );
 };
+
+
+
+
+//* Para que o Outlet funcione, o Main precisa ser um componente que retorna JSX,
+// * e não uma função que retorna um elemento JSX. Isso é necessário porque o Outlet é
+//* um componente React que precisa ser renderizado dentro de um componente React. 
+//* Se o Main fosse uma função que retorna um elemento JSX, o Outlet não funcionaria
+//*  corretamente. Portanto, o Main deve ser um componente React que retorna JSX.
+
+// interface MainProps{
+//   children: React.ReactNode;
+//   weather?: WeatherData;
+// };

@@ -1,0 +1,32 @@
+{
+  "weather_app": "Weather App",
+  "login": "Login",
+  "project_description": "This project was developed by 6 students from UFMT",
+  "embedded_systems": "This project was made for the subject of embedded systems. The project was divided into multiple workstreams, including frontend development, User Experience, backend development and Hardware development. The purpose was creating a meteorology station.",
+  "temperature_focus": "At first we are not focusing on showing the prediction, just the temperature itself. Actually more than that like pressure, wind speed, UV radiations and some more.",
+  "location_focus": "For now we'll be measuring only in our city, Cuiabá - Mato Grosso",
+  "curiosities_title": "Curiosities about the weather in Cuiabá",
+  "curiosity_1": "🌡️ In 2020, Cuiabá reached 44.5°C — with a heat index over 50°C!",
+  "curiosity_2": "💨 Winds over 50 km/h are common during cold fronts.",
+  "curiosity_3": "🌞 UV radiation here is usually extremely high.",
+  "footer_text": "Academic Project — Weather Station | Embedded Systems - UFMT",
+  "control_engineering": "Control and Automation Engineering",
+  "computer_enginering": "Computer Engineering",
+  "bruno_role": "Worked with Hardware",
+  "gabriel_role": "Worked with Hardware",
+  "kassio_role": "Worked on back-end",
+  "thiago_role": "Worked on back-end",
+  "maria_role": "Worked on front-end",
+  "pedro_role": "Worked on front-end",
+
+  "search_placeholder": "Search",
+  "sign_up": "Sign Up",
+  "weather": "Weather",
+  "update": "Update",
+  "home": "Home",
+  "forecast": "Forecast",
+  "pressure": "Pressure",
+  "wind": "Wind",
+
+  "thermal_condition": "Thermal Conditions - Cuiabá"
+}

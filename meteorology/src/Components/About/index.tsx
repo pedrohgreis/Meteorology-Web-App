@@ -1,6 +1,3 @@
-
-
-
 import { ButtonLogin, CuriositySection, DeveloperContent,
     DevelopersContainer,
     DevelopersInfo,  
@@ -9,6 +6,7 @@ import { ButtonLogin, CuriositySection, DeveloperContent,
     Images, 
     Info, 
     InfoSection, 
+    Lang, 
     MainAbout, 
     PersonalInfo, 
     PresentationSection
@@ -26,10 +24,14 @@ import meteorologyStation from "../../assets/estacao_meteorologica/estacao_meteo
 import meteorologyStationHardware from "../../assets/estacao_meteorologica/estacao_meteorologica-hardware.jpg";
 
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 
 
 export const About = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
 
   const handleNavigate = () => {
     navigate("/home");
@@ -38,14 +40,16 @@ export const About = () => {
   return (
     <>
       <Header>
-          <h1>Weather App</h1>
-    
-          <ButtonLogin onClick={handleNavigate}>Login</ButtonLogin>
+          <Lang>
+            <LanguageSwitcher />
+          </Lang>
+          <h1>{t("weather_app")}</h1>
+          <ButtonLogin onClick={handleNavigate}>{t("login")}</ButtonLogin>
       </Header>
       <MainAbout >
         <PresentationSection>
           <div>
-            <p>This project was developed by 6 students from UFMT</p>
+            <p>{t("project_description")}</p>
 
             <DevelopersContainer>
               {/* <DeveloperWrapper alignRight={false}> */}
@@ -53,8 +57,8 @@ export const About = () => {
                   <DevelopersInfo $background={brunoPhoto}/>
                     <PersonalInfo>
                       <h3>Bruno Lopes</h3>
-                      <h4>Engenharia de Controle e Automação</h4>
-                      <p>Trabalhou com o Hardware</p>
+                      <h4>{t("control_engineering")}</h4>
+                      <p>{t("bruno_role")}</p>
                     </PersonalInfo>
                 </DeveloperContent>
               {/* </DeveloperWrapper> */}
@@ -66,8 +70,8 @@ export const About = () => {
                   <DevelopersInfo $background={nodariPhoto}/>
                     <PersonalInfo>
                       <h3>Gabriel Nodari</h3>
-                      <h4>Engenharia de Computação</h4>
-                      <p>Trabalhou com o Hardware</p>
+                      <h4>{t("computer_engineering")}</h4>
+                      <p>{t("gabriel_role")}</p>
                     </PersonalInfo>
                 </DeveloperContent>
               {/* </DeveloperWrapper> */}
@@ -79,8 +83,8 @@ export const About = () => {
                   <DevelopersInfo $background={kassioPhoto} />
                     <PersonalInfo>
                       <h3>Kassio</h3>
-                      <h4>Engenharia de Computação</h4>
-                      <p>Trabalhou no back-end</p>
+                      <h4>{t("computer_engineering")}</h4>
+                      <p>{t("kassio_role")}</p>
                     </PersonalInfo>
                 </DeveloperContent>
               {/* </DeveloperWrapper> */}
@@ -92,8 +96,8 @@ export const About = () => {
                   <DevelopersInfo $background={Thiagophoto}/>
                     <PersonalInfo>
                       <h3>Thiago Vinícius</h3>
-                      <h4>Engenharia de Computação</h4>
-                      <p>Trabalhou no back-end</p>
+                      <h4>{t("computer_engineering")}</h4>
+                      <p>{t("thiago_role")}</p>
                     </PersonalInfo>
                 </DeveloperContent>
               {/* </DeveloperWrapper> */}
@@ -105,8 +109,8 @@ export const About = () => {
                   <DevelopersInfo $background={Mariaphoto}/>
                     <PersonalInfo>
                       <h3>Maria Vittória</h3>
-                      <h4>Engenharia de Computação</h4>
-                      <p>Trabalhou no front-end</p>
+                      <h4>{t("computer_engineering")}</h4>
+                      <p>{t("maria_role")}</p>
                     </PersonalInfo>
                 </DeveloperContent>
               {/* </DeveloperWrapper> */}
@@ -119,8 +123,8 @@ export const About = () => {
                 <DevelopersInfo $background={Pedrophoto}/>
                     <PersonalInfo>
                       <h3>Pedro Reis</h3>
-                      <h4>Engenharia de Computação</h4>
-                      <p>Trabalhou no front-end</p>
+                      <h4>{t("computer_engineering")}</h4>
+                      <p>{t("pedro_role")}</p>
                     </PersonalInfo>
                 </DeveloperContent>
               {/* </DeveloperWrapper> */}
@@ -140,16 +144,14 @@ export const About = () => {
 
               <Info>
                 <p>
-                  This project was made for the subject of embedded systems. The project was divided into multiple workstreams, including
-                  frontend development, User Experience, backend development and Hardware development. The purpose was creating a meteorology station.
+                  {t("embedded_systems")}
                 </p>
 
                 <p>
-                  At first we are not focusing on showing the prediction, just the temperature itself. Actually more than that
-                  like pressure, wind speed, UV radiations and some more.
+                  {t("temperature_focus")}
                 </p>
 
-                <p>For now we'll be messuring only in our city, Cuiabá - Mato Grosso</p>
+                <p>{t("location_focus")}</p>
             </Info>
 
             <Images>
@@ -165,13 +167,13 @@ export const About = () => {
             viewport={{once: true, amount: 0.3}}
             transition={{duration: 0.3, ease: "easeOut"}}
           >
-            <h3>Curiosities about the weather in Cuiabá</h3>
+            <h3>{t("curiosities_title")}</h3>
 
             <div>
               <ul>
-                <li>🌡️ In 2020, Cuiabá reached 44.5°C — with a heat index over 50°C!</li>
-                <li>💨 Winds over 50 km/h are common during cold fronts.</li>
-                <li>🌞 UV radiation here is usually extremely high.</li>
+                <li>{t("curiosity_1")}</li>
+                <li>{t("curiosity_2")}</li>
+                <li>{t("curiosity_3")}</li>
               </ul>
 
 
@@ -194,7 +196,7 @@ export const About = () => {
       >
         <p>
           <strong>
-            <em>Academic Project — Weather Station | Embedded Systems - UFMT</em>
+            <em>{t("footer_text")}</em>
           </strong>
         </p>
       </Footer>

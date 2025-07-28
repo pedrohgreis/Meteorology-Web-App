@@ -3,7 +3,7 @@ import React from "react";
 
 import { NavLink } from "react-router-dom";
 
-import {Head, FirstDiv, SecondDiv, ThirdDiv, SearchForm, InputForm, DivForm} from "./styles";
+import {Head, FirstDiv, SecondDiv, ThirdDiv, SearchForm, InputForm, DivForm, Lang} from "./styles";
 
 // icons
 import * as WeatherIcons from "react-icons/wi"; 
@@ -14,7 +14,8 @@ import { DynamicIcons } from "../DynamicIcons";
 import { FaSearch } from "react-icons/fa";
 import { WiDaySunnyOvercast } from "react-icons/wi";
 import { BsArrowClockwise } from "react-icons/bs";
-
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 
 
 
@@ -22,6 +23,8 @@ import { BsArrowClockwise } from "react-icons/bs";
 
 
 export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
+
+  const { t } = useTranslation();
 
   const handleNavigate = () => {
     window.location.href = "/home";
@@ -33,6 +36,7 @@ export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
     id: 0,
     isNight: false,
     day: new Date(),
+    hour: new Date().getHours(),
     temperature: 0,
     description: "Unknown",
     humidity: 0,
@@ -69,32 +73,36 @@ export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
       <FirstDiv>
         <div className="infoWeather">
          <DynamicIcons name={iconName} size={32} className="icon" />
-          <h1>Weather App</h1>
+          <h1>{t("weather_app")}</h1>
         </div>
 
         <SearchForm>
           <DivForm>
-            <InputForm placeholder="Search" />
+            <InputForm placeholder={t("search_placeholder")} />
             <button><FaSearch /></button>
           </DivForm>
         </SearchForm>
 
         <div className="signUp">
-          <button type="button" className="signingUp">Sign Up</button>
+          <button type="button" className="signingUp">{t("sign_up")}</button>
         </div>
+
+         <Lang>
+          <LanguageSwitcher />
+        </Lang>
         
       </FirstDiv>
 
       <SecondDiv>
         <div className="content">
-          <h2>Weather</h2> 
+          <h2>{t("weather")}</h2> 
           <WiDaySunnyOvercast size={24} color="#FFD700" />
           {/* <span>{cw.temperature} &deg;C {cw.location}</span> */}
           <span>{cw.temperature} &deg;C</span>
         
           <div className="buttonContainer">
             <button type="submit" className="buttonHeader" onClick={handleNavigate}>
-              <BsArrowClockwise size={24} color="#FFF" /> Update
+              <BsArrowClockwise size={24} color="#FFF" /> {t("update")}
             </button>
           </div>
         </div>
@@ -102,10 +110,10 @@ export const Header: React.FC<{weather?: WeatherData}> = ({ weather }) => {
 
       <ThirdDiv>
         <nav className="nav">
-          <NavLink to={"/"}>Home</NavLink>
-          <NavLink to={"/"}>Forecast</NavLink>
-          <NavLink to={"/"}>Pression</NavLink>
-          <NavLink to={"/"}>Wind</NavLink>
+          <NavLink to={"/"}>{t("home")}</NavLink>
+          <NavLink to={"/"}>{t("forecast")}</NavLink>
+          <NavLink to={"/"}>{t("pressure")}</NavLink>
+          <NavLink to={"/"}>{t("wind")}</NavLink>
         </nav>
       </ThirdDiv>
     </Head>
