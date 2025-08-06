@@ -11,7 +11,7 @@ export const Home: React.FC = () => {
 
  useEffect(() => {
   axios
-    .get("http://vps49762.publiccloud.com.br:7070/climas")
+    .get("/api/climas")
     .then((response: any) => {
       const weatherData = response.data;
 
