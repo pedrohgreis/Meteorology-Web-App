@@ -6,6 +6,8 @@ export const Languages = styled.div`
   gap: 8px;
 
   button {
+    width: 32px;
+    height: 24px;
     background: transparent;
     border: none;
     cursor: pointer;
